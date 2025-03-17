@@ -10,7 +10,7 @@ conf = ConnectionConfig(
     MAIL_USERNAME=config_credentials["EMAIL"],
     MAIL_PASSWORD=config_credentials["PASS"],
     MAIL_FROM=config_credentials["EMAIL"],
-    MAIL_FROM_NAME="Your Company Name", 
+    MAIL_FROM_NAME="ShopShip", 
     MAIL_PORT=587,
     MAIL_SERVER="smtp.gmail.com",
     MAIL_STARTTLS=True,   
@@ -36,16 +36,16 @@ async def send_email(email:List, instance: User):
               <h2>Email Verification</h2>
               <p>Hello <strong>{instance.username}</strong>,</p>
               <p>Thank you for registering. Please verify your email address by clicking the button below:</p>
-              <a class="button" href="http://localhost:8000/verify?token={token}">Verify Email</a>
+              <a class="button" href="http://localhost:8000/verification?token={token}">Verify Email</a>
               <p>If you did not create an account, you can ignore this email.</p>
-              <p>Best Regards,<br>Your Company Name</p>
+              <p>Best Regards,<br>ShopShip</p>
           </div>
       </body>
       </html>
     """
   
   message = MessageSchema(
-    subject ="EYour Company Name Account verification Email",
+    subject ="ShopShip Account verification Email",
     recipients= email,
     body = template,
     subtype="html"

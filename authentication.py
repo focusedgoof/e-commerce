@@ -31,3 +31,28 @@ async def very_token(token:str):
      )
   return user
 
+
+async def authenticate_user(username, password):
+   user =await User.get(username= username)
+
+   if user and verify(password, user.password):
+      return user
+   return False
+
+async def token_generator(username:str, password:str):
+  user = await authenticate_user(username, password)
+
+  if not user:
+    raise HTTPException(
+      status_code= status.HTTP_401_UNAUTHORIZED,
+      detail= "Invalid token",
+      headers ={"WWW.Autenticate": "Bearer"}
+    )
+  token_data ={
+    "id":user.id,
+    "username": user.username
+  }
+  token = jwt.encode(token_data, config_credentials["SECRET"])
+  return token
+
+   
